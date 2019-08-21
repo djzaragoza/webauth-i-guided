@@ -4,6 +4,7 @@ const cors = require('cors');
 
 const db = require('./database/dbConfig.js');
 const Users = require('./users/users-model.js');
+const restricted = require('./auth/restricted-middleware.js');
 
 const bcrypt = require('bcryptjs');
 
@@ -19,6 +20,10 @@ server.get('/', (req, res) => {
 
 server.post('/api/register', (req, res) => {
   let user = req.body;
+
+  const hash = bcrypt.hashSync(user.passsword, 12)
+
+  user.password = hash;
 
   Users.add(user)
     .then(saved => {
