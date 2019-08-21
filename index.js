@@ -5,6 +5,8 @@ const cors = require('cors');
 const db = require('./database/dbConfig.js');
 const Users = require('./users/users-model.js');
 
+const bcrypt = require('bcryptjs');
+
 const server = express();
 
 server.use(helmet());
